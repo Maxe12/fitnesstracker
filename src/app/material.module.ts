@@ -11,6 +11,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 
 // Imports from Material modules going in here
 @NgModule({
@@ -25,7 +27,9 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatSidenavModule,
         MatRadioModule,
         MatListModule,
-        MatTabsModule
+        MatTabsModule,
+        MatCardModule,
+        MatSelectModule
     ],
     exports: [
         MatButtonModule,
@@ -39,7 +43,9 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatToolbarModule,
         MatRadioModule,
         MatListModule,
-        MatTabsModule
+        MatTabsModule,
+        MatCardModule,
+        MatSelectModule
     ]
 })
 export class MaterialModule {}
