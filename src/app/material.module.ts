@@ -11,29 +11,29 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import {MatRadioModule} from '@angular/material/radio';
 
-//Imports from Material modules going in here 
+// Imports from Material modules going in here
 @NgModule({
     imports: [
-        MatButtonModule, 
-        MatIconModule, 
-        MatInputModule, 
-        MatFormFieldModule, 
-        MatDatepickerModule, 
-        MatNativeDateModule, 
-        MatCheckboxModule, 
+        MatButtonModule,
+        MatIconModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCheckboxModule,
         MatSidenavModule,
-        MatRadioModule, 
+        MatRadioModule,
         MatListModule
     ],
     exports: [
-        MatButtonModule, 
-        MatIconModule, 
-        MatInputModule, 
-        MatFormFieldModule, 
-        MatDatepickerModule, 
-        MatNativeDateModule, 
-        MatCheckboxModule, 
-        MatSidenavModule, 
+        MatButtonModule,
+        MatIconModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCheckboxModule,
+        MatSidenavModule,
         MatToolbarModule,
         MatRadioModule,
         MatListModule
