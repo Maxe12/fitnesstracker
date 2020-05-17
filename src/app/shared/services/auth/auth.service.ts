@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {User} from '../../interfaces/user';
 import {AuthenticationData} from '../../interfaces/authentication-data';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  public authChanges = new Subject<boolean>();
   private user: User;
 
   constructor() { }
@@ -15,6 +17,7 @@ export class AuthService {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
     };
+    this.authChanges.next(true);
   }
 
   public login(authData: AuthenticationData): void {
@@ -22,10 +25,12 @@ export class AuthService {
       email: authData.email,
       userId: Math.round(Math.random() * 10000).toString()
     };
+    this.authChanges.next(true);
   }
 
   public logout(): void {
     this.user = null;
+    this.authChanges.next(false);
   }
 
   public getUser(): User | null {
@@ -33,6 +38,6 @@ export class AuthService {
   }
 
   public isLoggedIn(): boolean {
-    return this.user != null;
+    return !!this.user;
   }
 }
