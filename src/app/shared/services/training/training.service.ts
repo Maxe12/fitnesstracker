@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Exercise} from '../../interfaces/exercise';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class TrainingService {
     { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
     { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
   ];
-  private runningExercise: Exercise;
+  private _runningExercise: Exercise;
+  runningExerciseChanged = new Subject<Exercise>();
+  private _completedExercises: Exercise[] = [];
 
   constructor() { }
 
@@ -19,7 +22,46 @@ export class TrainingService {
     return this._availableExercises.slice();
   }
 
+  get runningExercise(): Exercise {
+    return {...this._runningExercise};
+  }
+
+  set runningExercise(value: Exercise) {
+    this._runningExercise = value;
+  }
+
+  get completedExercises(): Exercise[] {
+    return this._completedExercises.slice();
+  }
+
+  set completedExercises(value: Exercise[]) {
+    this._completedExercises = value;
+  }
+
   startExercise(selectedId: string) {
-    this.runningExercise = this.availableExercises.find(ex => ex.id === selectedId);
+    this._runningExercise = this.availableExercises.find(
+      ex => ex.id === selectedId
+    );
+    this.runningExerciseChanged.next({...this._runningExercise});
+  }
+
+  exerciseFinished() {
+    this._completedExercises.push({
+      ...this.runningExercise,
+      date: new Date().toString(),
+      state: 'completed'});
+    this.runningExercise = null;
+    this.runningExerciseChanged.next(null);
+  }
+
+  cancelExercise(progress: number) {
+    this._completedExercises.push({
+      ...this.runningExercise,
+      duration: this.runningExercise.duration * (progress / 100),
+      calories: this.runningExercise.calories * (progress / 100),
+      date: new Date().toString(),
+      state: 'cancelled'});
+    this._runningExercise = null;
+    this.runningExerciseChanged.next(null);
   }
 }

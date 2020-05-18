@@ -29,17 +29,17 @@ import { StopTrainingComponent } from './training/current-training/stop-training
     PastTrainingComponent,
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent, 
+    SidenavListComponent,
     StopTrainingComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule, 
-    AppRoutingModule, 
-    FlexLayoutModule, 
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        AppRoutingModule,
+        FlexLayoutModule,
+        FormsModule,
+    ],
   entryComponents: [StopTrainingComponent],
   providers: [],
   bootstrap: [AppComponent]
