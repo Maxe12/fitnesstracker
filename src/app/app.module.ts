@@ -17,6 +17,9 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { StopTrainingComponent } from './training/current-training/stop-training.component';
+import {environment} from '../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -33,12 +36,14 @@ import { StopTrainingComponent } from './training/current-training/stop-training
     StopTrainingComponent
   ],
     imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        AppRoutingModule,
-        FlexLayoutModule,
-        FormsModule,
+      BrowserModule,
+      BrowserAnimationsModule,
+      MaterialModule,
+      AppRoutingModule,
+      FlexLayoutModule,
+      FormsModule,
+      AngularFireModule.initializeApp(environment.firebase),
+      AngularFirestoreModule
     ],
   entryComponents: [StopTrainingComponent],
   providers: [],
