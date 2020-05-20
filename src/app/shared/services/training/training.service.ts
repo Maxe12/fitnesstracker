@@ -9,10 +9,10 @@ import {map} from 'rxjs/operators';
 })
 export class TrainingService {
   private _availableExercises: Exercise[] = [];
-  exerciseDataChanges = new Subject<Exercise[]>();
+  availableExercisesChanged = new Subject<Exercise[]>();
   private _runningExercise: Exercise;
   runningExerciseChanged = new Subject<Exercise>();
-  private _completedExercises: Exercise[] = [];
+  completedExercisesChanged = new Subject<Exercise[]>();
 
   constructor(private firestore: AngularFirestore) { }
 
@@ -26,14 +26,6 @@ export class TrainingService {
 
   set runningExercise(value: Exercise) {
     this._runningExercise = value;
-  }
-
-  get completedExercises(): Exercise[] {
-    return this._completedExercises.slice();
-  }
-
-  set completedExercises(value: Exercise[]) {
-    this._completedExercises = value;
   }
 
   fetchAvailableExercises() {
@@ -53,7 +45,7 @@ export class TrainingService {
         })
       ).subscribe((exercises: Exercise[]) => {
         this._availableExercises = exercises;
-        this.exerciseDataChanges.next([...this._availableExercises]);
+        this.availableExercisesChanged.next([...this._availableExercises]);
     });
   }
 
@@ -65,7 +57,7 @@ export class TrainingService {
   }
 
   exerciseFinished() {
-    this._completedExercises.push({
+    this.pushExerciseToDatabase({
       ...this.runningExercise,
       date: new Date().toString(),
       state: 'completed'});
@@ -74,7 +66,7 @@ export class TrainingService {
   }
 
   cancelExercise(progress: number) {
-    this._completedExercises.push({
+    this.pushExerciseToDatabase({
       ...this.runningExercise,
       duration: this.runningExercise.duration * (progress / 100),
       calories: this.runningExercise.calories * (progress / 100),
@@ -82,5 +74,18 @@ export class TrainingService {
       state: 'cancelled'});
     this._runningExercise = null;
     this.runningExerciseChanged.next(null);
+  }
+
+  fetchCompletedExercises(): void {
+    this.firestore
+      .collection('finishedExercises')
+      .valueChanges()
+      .subscribe((exercises: Exercise[]) => {
+        this.completedExercisesChanged.next(exercises);
+      });
+  }
+
+  private pushExerciseToDatabase(exercise: Exercise): void {
+    this.firestore.collection('finishedExercises').add(exercise);
   }
 }
