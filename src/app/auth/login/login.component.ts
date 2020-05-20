@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit(loginData) {
     this.authService.login({
-      email: loginData.email,
-      password: loginData.password
+      email: loginData.value.email,
+      password: loginData.value.password
     });
   }
 }
