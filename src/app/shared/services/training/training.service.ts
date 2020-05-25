@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Exercise} from '../../interfaces/exercise';
 import {Subject, Subscription} from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
+import {AngularFirestore} from 'angularfire2/firestore';
 import {map} from 'rxjs/operators';
+import {UiService} from '../ui/ui.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,11 @@ export class TrainingService {
   completedExercisesChanged = new Subject<Exercise[]>();
   private firebaseServiceSubs: Subscription[] = [];
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(
+    private firestore: AngularFirestore,
+    private uiService: UiService
+  ) {
+  }
 
   get availableExercises(): Exercise[] {
     return this._availableExercises.slice();
@@ -30,6 +35,7 @@ export class TrainingService {
   }
 
   fetchAvailableExercises() {
+    this.uiService.loadingStateChanged.next(true);
     this.firebaseServiceSubs.push(this.firestore
       .collection('exercises')
       .snapshotChanges()
@@ -45,9 +51,14 @@ export class TrainingService {
           });
         })
       ).subscribe((exercises: Exercise[]) => {
+        this.uiService.loadingStateChanged.next(false);
         this._availableExercises = exercises;
         this.availableExercisesChanged.next([...this._availableExercises]);
-    }));
+      }, error => {
+        this.uiService.loadingStateChanged.next(false);
+        this.uiService.showSnackbar('Fetching exercises failed, please try again later', null, 5000);
+        this.availableExercisesChanged.next(null);
+      }));
   }
 
   startExercise(selectedId: string) {
@@ -61,7 +72,8 @@ export class TrainingService {
     this.pushExerciseToDatabase({
       ...this.runningExercise,
       date: new Date().toString(),
-      state: 'completed'});
+      state: 'completed'
+    });
     this.runningExercise = null;
     this.runningExerciseChanged.next(null);
   }
@@ -72,7 +84,8 @@ export class TrainingService {
       duration: this.runningExercise.duration * (progress / 100),
       calories: this.runningExercise.calories * (progress / 100),
       date: new Date().toString(),
-      state: 'cancelled'});
+      state: 'cancelled'
+    });
     this._runningExercise = null;
     this.runningExerciseChanged.next(null);
   }
