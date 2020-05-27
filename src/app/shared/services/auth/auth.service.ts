@@ -6,6 +6,8 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import {TrainingService} from '../training/training.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UiService} from '../ui/ui.service';
+import {Store} from '@ngrx/store';
+import {State} from '../../interfaces/state';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,8 @@ export class AuthService {
     private fireAuth: AngularFireAuth,
     private trainingService: TrainingService,
     private snackBar: MatSnackBar,
-    private uiService: UiService
+    private uiService: UiService,
+    private store: Store<{ui: State}>
   ) { }
 
   initAuthorization(): void {
@@ -38,7 +41,8 @@ export class AuthService {
   }
 
   public registerUser(authData: AuthenticationData): void {
-    this.uiService.loadingStateChanged.next(true);
+    // this.uiService.loadingStateChanged.next(true);
+    this.store.dispatch({type: 'START_LOADING'});
     this.fireAuth.auth.createUserWithEmailAndPassword(
       authData.email,
       authData.password
@@ -49,12 +53,14 @@ export class AuthService {
         this.uiService.showSnackbar(error.message, null, 3000);
     })
       .finally(() => {
-      this.uiService.loadingStateChanged.next(false);
+      // this.uiService.loadingStateChanged.next(false);
+        this.store.dispatch({type: 'STOP_LOADING'});
     });
   }
 
   public login(authData: AuthenticationData): void {
-    this.uiService.loadingStateChanged.next(true);
+    // this.uiService.loadingStateChanged.next(true);
+    this.store.dispatch({type: 'START_LOADING'});
     this.fireAuth.auth.signInWithEmailAndPassword(
       authData.email,
       authData.password
@@ -65,7 +71,8 @@ export class AuthService {
         this.uiService.showSnackbar(error.message, null, 3000);
       })
       .finally(() => {
-        this.uiService.loadingStateChanged.next(false);
+        // this.uiService.loadingStateChanged.next(false);
+        this.store.dispatch({type: 'STOP_LOADING'});
       });
   }
 

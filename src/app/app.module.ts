@@ -21,6 +21,8 @@ import {environment} from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import {StoreModule} from '@ngrx/store';
+import {appReducer} from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
       FormsModule,
       AngularFireModule.initializeApp(environment.firebase),
       AngularFirestoreModule,
-      AngularFireAuthModule
+      AngularFireAuthModule,
+      StoreModule.forRoot({ui: appReducer})
     ],
   entryComponents: [StopTrainingComponent],
   providers: [],
