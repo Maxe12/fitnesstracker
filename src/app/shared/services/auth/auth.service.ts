@@ -7,8 +7,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {UiService} from '../ui/ui.service';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
-import * as UI from '../../reducers/ui/ui.actions';
-import * as Auth from '../../reducers/auth/auth.action';
+import * as UI from '../../redux/ui/ui.actions';
+import * as Auth from '../../redux/auth/auth.action';
 
 @Injectable({
   providedIn: 'root'

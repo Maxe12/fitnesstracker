@@ -4,7 +4,7 @@ import {Subject, Subscription} from 'rxjs';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {map} from 'rxjs/operators';
 import {UiService} from '../ui/ui.service';
-import * as UI from '../../reducers/ui/ui.actions';
+import * as UI from '../../redux/ui/ui.actions';
 import * as fromRoot from '../../../app.reducer';
 import {Store} from '@ngrx/store';
 
