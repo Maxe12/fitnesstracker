@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {Exercise} from '../../shared/interfaces/exercise';
 import {TrainingService} from '../../shared/services/training/training.service';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
-import {Subscription} from 'rxjs';
 import * as fromRoot from '../../app.reducer';
 import {Store} from '@ngrx/store';
 

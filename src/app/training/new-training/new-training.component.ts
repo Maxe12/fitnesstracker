@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Exercise} from '../../shared/interfaces/exercise';
 import {TrainingService} from '../../shared/services/training/training.service';
 import {NgForm} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {UiService} from '../../shared/services/ui/ui.service';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
