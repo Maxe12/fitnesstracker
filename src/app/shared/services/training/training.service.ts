@@ -12,9 +12,7 @@ import {Store} from '@ngrx/store';
   providedIn: 'root'
 })
 export class TrainingService {
-  private _availableExercises: Exercise[] = [];
   availableExercisesChanged = new Subject<Exercise[]>();
-  private _runningExercise: Exercise;
   runningExerciseChanged = new Subject<Exercise>();
   completedExercisesChanged = new Subject<Exercise[]>();
   private firebaseServiceSubs: Subscription[] = [];
@@ -26,9 +24,13 @@ export class TrainingService {
   ) {
   }
 
+  private _availableExercises: Exercise[] = [];
+
   get availableExercises(): Exercise[] {
     return this._availableExercises.slice();
   }
+
+  private _runningExercise: Exercise;
 
   get runningExercise(): Exercise {
     return {...this._runningExercise};
@@ -103,11 +105,11 @@ export class TrainingService {
       }));
   }
 
-  private pushExerciseToDatabase(exercise: Exercise): void {
-    this.firestore.collection('finishedExercises').add(exercise);
-  }
-
   cancelSubscriptions(): void {
     this.firebaseServiceSubs.forEach(sub => sub.unsubscribe());
+  }
+
+  private pushExerciseToDatabase(exercise: Exercise): void {
+    this.firestore.collection('finishedExercises').add(exercise);
   }
 }

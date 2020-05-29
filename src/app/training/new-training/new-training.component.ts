@@ -21,7 +21,8 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
     private trainingService: TrainingService,
     private uiService: UiService,
     private store: Store<fromRoot.State>
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);

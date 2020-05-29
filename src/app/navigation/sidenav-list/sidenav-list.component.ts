@@ -1,6 +1,6 @@
-import {Component, OnInit, EventEmitter, Output, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AuthService} from '../../shared/services/auth/auth.service';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import * as fromRoot from '../../app.reducer';
 import {Store} from '@ngrx/store';
 
@@ -16,7 +16,8 @@ export class SidenavListComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private store: Store<fromRoot.State>
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.store.select(fromRoot.getIsAuthenticated);

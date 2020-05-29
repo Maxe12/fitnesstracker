@@ -18,7 +18,8 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private trainingService: TrainingService) { }
+  constructor(private trainingService: TrainingService) {
+  }
 
   ngOnInit(): void {
     this.completedExerciseSub = this.trainingService.completedExercisesChanged.subscribe((exercises: Exercise[]) => {
@@ -37,8 +38,8 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-   if (this.completedExerciseSub) {
-     this.completedExerciseSub.unsubscribe();
-   }
+    if (this.completedExerciseSub) {
+      this.completedExerciseSub.unsubscribe();
+    }
   }
 }

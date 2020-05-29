@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AuthenticationData} from '../../interfaces/authentication-data';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from 'angularfire2/auth';
@@ -22,7 +22,8 @@ export class AuthService {
     private snackBar: MatSnackBar,
     private uiService: UiService,
     private store: Store<fromRoot.State>
-  ) { }
+  ) {
+  }
 
   initAuthorization(): void {
     this.fireAuth.authState.subscribe(user => {
@@ -47,10 +48,10 @@ export class AuthService {
       })
       .catch(error => {
         this.uiService.showSnackbar(error.message, null, 3000);
-    })
+      })
       .finally(() => {
         this.store.dispatch(new UI.StopLoading());
-    });
+      });
   }
 
   public login(authData: AuthenticationData): void {

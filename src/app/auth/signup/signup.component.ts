@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth/auth.service';
 import {UiService} from '../../shared/services/ui/ui.service';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import * as fromRoot from '../../app.reducer';
 import {Store} from '@ngrx/store';
 
@@ -19,7 +19,8 @@ export class SignupComponent implements OnInit {
     private authService: AuthService,
     private uiService: UiService,
     private store: Store<fromRoot.State>
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);

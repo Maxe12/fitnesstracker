@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private uiService: UiService,
     private store: Store<fromRoot.State>
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
