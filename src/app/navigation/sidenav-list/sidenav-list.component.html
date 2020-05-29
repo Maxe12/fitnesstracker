@@ -1,18 +1,18 @@
 <mat-nav-list>
-    <a *ngIf="!isLoggedIn" mat-list-item routerLink="/signup" (click)="toggleSidenav()">
+    <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/signup" (click)="toggleSidenav()">
         <mat-icon>face</mat-icon>
         <span class="nav-caption">Signup</span>
     </a>
-    <a *ngIf="!isLoggedIn" mat-list-item routerLink="/login" (click)="toggleSidenav()">
+    <a *ngIf="!(isAuthenticated$ | async)" mat-list-item routerLink="/login" (click)="toggleSidenav()">
         <mat-icon>input</mat-icon>
         <span class="nav-caption">Login</span>
     </a>
-    <a *ngIf="isLoggedIn" mat-list-item routerLink="/training" (click)="toggleSidenav()">
+    <a *ngIf="isAuthenticated$ | async" mat-list-item routerLink="/training" (click)="toggleSidenav()">
         <mat-icon>accessibility_new</mat-icon>
         <span class="nav-caption">Training</span>
     </a>
     <mat-list-item>
-        <button *ngIf="isLoggedIn" (click)="handleLogout()" mat-icon-button>
+        <button *ngIf="isAuthenticated$ | async" (click)="handleLogout()" mat-icon-button>
             <mat-icon>eject</mat-icon>
             <span class="nav-caption">Logout</span>
         </button>
